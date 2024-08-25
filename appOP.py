@@ -3,6 +3,7 @@ import pyttsx3
 import tkinter as tk
 from tkinter import filedialog
 from gtts import gTTS
+from tqdm import tqdm
 
 # Función para abrir el diálogo de selección de archivo
 def select_pdf_file():
@@ -19,7 +20,7 @@ def pdf_to_audio(pdf_path, output_file):
     with open(pdf_path, 'rb') as path:
         pdf_reader = PyPDF2.PdfReader(path)
         full_text = ""
-        for page_num in range(len(pdf_reader.pages)):
+        for page_num in tqdm(range(len(pdf_reader.pages)), desc="Procesando páginas del PDF"):
             page = pdf_reader.pages[page_num]
             text = page.extract_text()
             if text:
